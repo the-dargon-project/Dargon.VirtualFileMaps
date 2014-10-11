@@ -55,21 +55,21 @@ namespace Dargon.VirtualFileMapping
       public void ReadAcrossSectorsTest()
       {
          var readRange = new SectorRange(500, 1500);
-         var firstRange = new SectorRange(0, 1000);
-         var secondRange = new SectorRange(1000, 2000);
+         var firstRange = new SectorRange(100, 800);
+         var secondRange = new SectorRange(1200, 2000);
 
          var firstSector = CreateMock<ISector>();
          var secondSector = CreateMock<ISector>();
 
-         When(firstSector.Size).ThenReturn(1000);
-         When(secondSector.Size).ThenReturn(1000);
+         When(firstSector.Size).ThenReturn(700);
+         When(secondSector.Size).ThenReturn(800);
          When(sectors.GetSectorsForRange(readRange)).ThenReturn(new[] { firstRange.PairValue(firstSector), secondRange.PairValue(secondSector) });
 
          var buffer = testObj.Read(readRange.startInclusive, readRange.Size);
 
          Verify(sectors).GetSectorsForRange(readRange);
-         Verify(firstSector).Read(500, 500, buffer, 0);
-         Verify(secondSector).Read(0, 500, buffer, 500);
+         Verify(firstSector).Read(400, 300, buffer, 0);
+         Verify(secondSector).Read(0, 300, buffer, 700);
          Verify(firstSector).Size.Wrap();
          Verify(secondSector, AnyOrNoneTimes()).Size.Wrap();
          VerifyNoMoreInteractions();

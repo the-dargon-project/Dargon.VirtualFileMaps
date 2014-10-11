@@ -23,20 +23,17 @@ namespace Dargon.VirtualFileMapping
             throw new ArgumentException("The buffer size is not large enough.");
          }
 
-         long bytesRemaining = length;
          var sectorsToRead = sectors.GetSectorsForRange(new SectorRange(offset, offset + length));
          for (var i = 0; i < sectorsToRead.Length; i++) {
             var sectorKvp = sectorsToRead[i];
             var sectorRange = sectorKvp.Key;
             var sector = sectorKvp.Value;
 
-            long readOffset = i == 0 ? offset - sectorRange.startInclusive : 0;
-            long readLength = i == sectorsToRead.Length - 1 ? bytesRemaining : sector.Size - readOffset;
-
-            sector.Read(readOffset, readLength, buffer, bufferOffset);
-
-            bufferOffset += readLength;
-            bytesRemaining -= readLength;
+            long sectorReadOffset = i == 0 ? Math.Max(0, offset - sectorRange.startInclusive) : 0;
+            long bufferWriteOffset = sectorRange.startInclusive - offset + sectorReadOffset;
+            long copyLength = i != sectorsToRead.Length - 1 ? sector.Size - sectorReadOffset : Math.Min(sectorRange.Size - sectorReadOffset, length - bufferWriteOffset);
+            // Console.WriteLine("Reading from sector at " + sectorReadOffset + " writing to buffer at " + bufferWriteOffset + "+" + bufferOffset + " copying " + copyLength);
+            sector.Read(sectorReadOffset, copyLength, buffer, bufferOffset + bufferWriteOffset);
          }
       }
    }
