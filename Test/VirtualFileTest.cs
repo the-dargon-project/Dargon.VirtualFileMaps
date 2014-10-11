@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ItzWarty;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -56,23 +57,40 @@ namespace Dargon.VirtualFileMapping
       {
          var readRange = new SectorRange(500, 1500);
          var firstRange = new SectorRange(100, 800);
-         var secondRange = new SectorRange(1200, 2000);
+         var secondRange = new SectorRange(900, 1100);
+         var thirdRange = new SectorRange(1200, 2000);
 
          var firstSector = CreateMock<ISector>();
          var secondSector = CreateMock<ISector>();
+         var thirdSector = CreateMock<ISector>();
 
          When(firstSector.Size).ThenReturn(700);
-         When(secondSector.Size).ThenReturn(800);
-         When(sectors.GetSectorsForRange(readRange)).ThenReturn(new[] { firstRange.PairValue(firstSector), secondRange.PairValue(secondSector) });
+         When(secondSector.Size).ThenReturn(200);
+         When(thirdSector.Size).ThenReturn(800);
+         When(sectors.GetSectorsForRange(readRange)).ThenReturn(new[] { firstRange.PairValue(firstSector), secondRange.PairValue(secondSector), thirdRange.PairValue(thirdSector) });
 
          var buffer = testObj.Read(readRange.startInclusive, readRange.Size);
 
          Verify(sectors).GetSectorsForRange(readRange);
          Verify(firstSector).Read(400, 300, buffer, 0);
-         Verify(secondSector).Read(0, 300, buffer, 700);
+         Verify(secondSector).Read(0, 200, buffer, 400);
+         Verify(thirdSector).Read(0, 300, buffer, 700);
          Verify(firstSector).Size.Wrap();
-         Verify(secondSector, AnyOrNoneTimes()).Size.Wrap();
+         Verify(secondSector).Size.Wrap();
+         Verify(thirdSector, AnyOrNoneTimes()).Size.Wrap();
          VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      [ExpectedException(typeof(ArgumentException))]
+      public void ReadThrowsOnInadequateBuffer() 
+      { 
+         long offset = 10;
+         long length = 100;
+         long bufferOffset = 50;
+         var buffer = new byte[bufferOffset + length - 1];
+
+         testObj.Read(offset, length, buffer, bufferOffset);
       }
    }
 }
