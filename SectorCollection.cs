@@ -39,6 +39,7 @@ namespace Dargon.VirtualFileMapping
       }
 
       public IReadOnlyList<ISector> EnumerateSectors() { return new List<ISector>(sectors.Values); }
+      public List<KeyValuePair<SectorRange, ISector>> EnumerateSectorPairs() { return new List<KeyValuePair<SectorRange, ISector>>(sectors); }
 
       public KeyValuePair<SectorRange, ISector>[] GetSectorsForRange(SectorRange range)
       {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace Dargon.VirtualFileMapping
 {
@@ -7,5 +8,7 @@ namespace Dargon.VirtualFileMapping
       long Size { get; }
       IEnumerable<KeyValuePair<SectorRange, ISector>> Segment(IEnumerable<SectorRange> newPieces);
       void Read(long readOffset, long readLength, byte[] buffer, long bufferOffset);
+      void Serialize(BinaryWriter writer);
+      void Deserialize(BinaryReader reader);
    }
 }
