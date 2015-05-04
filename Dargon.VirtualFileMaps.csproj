@@ -32,9 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="libwarty">
-      <HintPath>..\the-dargon-project\packages\libwarty.0.0.15\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\libwarty.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ItzWarty.Commons">
+      <HintPath>..\the-dargon-project\packages\ItzWarty.Commons.0.1.1\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\ItzWarty.Commons.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
