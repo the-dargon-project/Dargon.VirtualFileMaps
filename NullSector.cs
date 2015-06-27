@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using ItzWarty;
 
-namespace Dargon.VirtualFileMapping
+namespace Dargon.VirtualFileMaps
 {
    [Guid("35544913-46AE-4118-930D-6A4A89FD087C")]
    public class NullSector : ISector

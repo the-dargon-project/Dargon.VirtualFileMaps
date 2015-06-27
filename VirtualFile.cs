@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Text;
 
-namespace Dargon.VirtualFileMapping
+namespace Dargon.VirtualFileMaps
 {
    public class VirtualFile
    {

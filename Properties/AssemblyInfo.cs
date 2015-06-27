@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("libvfm")]
+[assembly: AssemblyTitle("Dargon.VirtualFileMaps")]
 [assembly: AssemblyDescription("Dargon Virtual File Mapping Library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Dargon Project")]
-[assembly: AssemblyProduct("libvfm")]
+[assembly: AssemblyProduct("Dargon.VirtualFileMaps")]
 [assembly: AssemblyCopyright("Copyright © ItzWarty 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

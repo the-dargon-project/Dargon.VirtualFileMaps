@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Dargon.VirtualFileMapping
+namespace Dargon.VirtualFileMaps
 {
    public interface ISector
    {

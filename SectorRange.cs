@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dargon.VirtualFileMapping
+namespace Dargon.VirtualFileMaps
 {
    public struct SectorRange : IComparable, IComparable<SectorRange>, IEquatable<SectorRange>
    {

@@ -1,9 +1,9 @@
-﻿using ItzWarty;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using ItzWarty;
 
-namespace Dargon.VirtualFileMapping
+namespace Dargon.VirtualFileMaps
 {
    [Guid("5DB2B4C2-39AE-4629-988A-CFFFCE89F230")]
    public class FileSector : ISector
