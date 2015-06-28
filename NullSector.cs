@@ -11,6 +11,7 @@ namespace Dargon.VirtualFileMaps
    public class NullSector : ISector
    {
       private long size;
+      public NullSector() { }
       public NullSector(long size) { this.size = size; }
       public long Size { get { return size; } }
       public IEnumerable<KeyValuePair<SectorRange, ISector>> Segment(IEnumerable<SectorRange> newPieces) { return newPieces.Select(range => range.PairValue((ISector)new NullSector(range.Size))); }

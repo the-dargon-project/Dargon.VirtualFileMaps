@@ -12,6 +12,8 @@ namespace Dargon.VirtualFileMaps
       private long offset;
       private long length;
 
+      public FileSector() { }
+
       public FileSector(string path, long offset, long length)
       {
          this.path = path;
