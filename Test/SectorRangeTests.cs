@@ -6,13 +6,8 @@ using Xunit;
 
 namespace Dargon.VirtualFileMapping
 {
-   public unsafe class SectorRangeTests : NMockitoInstance
+   public class SectorRangeTests : NMockitoInstance
    {
-      [Fact]
-      public void StructSizeTest() {
-         AssertTrue(sizeof(SectorRange) <= 16);
-      }
-
       [Fact]
       public void SizeTest()
       {
