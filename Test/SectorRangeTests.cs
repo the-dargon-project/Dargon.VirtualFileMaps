@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Dargon.VirtualFileMaps;
 using NMockito;
+using Xunit;
 
 namespace Dargon.VirtualFileMapping
 {
-   [TestClass]
    public unsafe class SectorRangeTests : NMockitoInstance
    {
-      [TestMethod]
-      public void StructSizeTest()
-      {
+      [Fact]
+      public void StructSizeTest() {
          AssertTrue(sizeof(SectorRange) <= 16);
       }
 
-      [TestMethod]
+      [Fact]
       public void SizeTest()
       {
          AssertEquals(0, new SectorRange(0, 0).Size);
@@ -24,14 +23,14 @@ namespace Dargon.VirtualFileMapping
          AssertEquals(108, new SectorRange(12, 120).Size);
       }
 
-      [TestMethod]
+      [Fact]
       public void CompareToTest()
       {
          AssertEquals(-1, new SectorRange(0, 10).CompareTo(new SectorRange(11, 20)));
          AssertEquals(1, new SectorRange(11, 20).CompareTo(new SectorRange(0, 10))); 
       }
 
-      [TestMethod]
+      [Fact]
       public void IntersectsTest()
       {
          var a = new SectorRange(0, 10);
@@ -46,7 +45,7 @@ namespace Dargon.VirtualFileMapping
          AssertFalse(c.Intersects(e));
       }
 
-      [TestMethod]
+      [Fact]
       public void FullyContainsTest()
       {
          var a = new SectorRange(0, 10);
@@ -70,7 +69,7 @@ namespace Dargon.VirtualFileMapping
          AssertFalse(d.FullyContains(h));
       }
 
-      [TestMethod]
+      [Fact]
       public void ContainsTest()
       {
          var a = new SectorRange(10, 20);
@@ -82,7 +81,7 @@ namespace Dargon.VirtualFileMapping
          AssertFalse(a.Contains(22));
       }
 
-      [TestMethod]
+      [Fact]
       public void ChopFrontTest()
       {
          var initial = new SectorRange(1000, 2000);
@@ -96,7 +95,7 @@ namespace Dargon.VirtualFileMapping
          AssertEquals(new SectorRange(1500, 2000), chopResults1[0]);
       }
 
-      [TestMethod]
+      [Fact]
       public void ChopMiddleTest()
       {
          var initial = new SectorRange(1000, 2000);
@@ -107,7 +106,7 @@ namespace Dargon.VirtualFileMapping
          AssertEquals(new SectorRange(1750, 2000), chopResults[1]);
       }
 
-      [TestMethod]
+      [Fact]
       public void ChopBackTest()
       {
          var initial = new SectorRange(1000, 2000);

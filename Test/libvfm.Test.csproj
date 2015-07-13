@@ -36,7 +36,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Dargon.PortableObjects">
+      <HintPath>..\packages\Dargon.PortableObjects.0.1.0\lib\net45\Dargon.PortableObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="Dargon.TestUtilities">
+      <HintPath>..\packages\Dargon.TestUtilities.0.1.0\lib\net45\Dargon.TestUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="ItzWarty.Commons">
+      <HintPath>..\packages\ItzWarty.Commons.0.3.5\lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\ItzWarty.Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="ItzWarty.Proxies.Api">
+      <HintPath>..\packages\ItzWarty.Proxies.Api.0.1.0\lib\net45\ItzWarty.Proxies.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="NMockito">
+      <HintPath>..\packages\NMockito.0.1.0\lib\net45\NMockito.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -44,13 +65,10 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="FileSectorTests.cs" />
     <Compile Include="NullSectorTest.cs" />
     <Compile Include="SectorCollectionTests.cs" />
     <Compile Include="SectorRangeTests.cs" />
@@ -58,17 +76,12 @@
     <Compile Include="VirtualFileTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libtestutil\libtestutil.csproj">
-      <Project>{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}</Project>
-      <Name>libtestutil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\libvfm.csproj">
-      <Project>{042537a3-62a7-4a9b-98d5-d425b001d86b}</Project>
-      <Name>libvfm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libwarty\ItzWarty.csproj">
-      <Project>{097b6b08-4034-408a-b3c0-a12e8f9e8893}</Project>
-      <Name>ItzWarty</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dargon.VirtualFileMaps.csproj">
+      <Project>{042537A3-62A7-4A9B-98D5-D425B001D86B}</Project>
+      <Name>Dargon.VirtualFileMaps</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

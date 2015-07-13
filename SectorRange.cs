@@ -25,13 +25,13 @@ namespace Dargon.VirtualFileMaps
 
       public IEnumerable<SectorRange> Chop(SectorRange cutter)
       {
-         if (this.FullyContains(cutter) && this.startInclusive < cutter.startInclusive && cutter.endExclusive < this.endExclusive) {
-            yield return new SectorRange(this.startInclusive, cutter.startInclusive - 1);
+         if (startInclusive < cutter.startInclusive && cutter.endExclusive < this.endExclusive) {
+            yield return new SectorRange(this.startInclusive, cutter.startInclusive);
             yield return new SectorRange(cutter.endExclusive, this.endExclusive);
          } else if (cutter.Contains(this.startInclusive)) {
             yield return new SectorRange(cutter.endExclusive, this.endExclusive);
          } else {
-            yield return new SectorRange(this.startInclusive, cutter.startInclusive - 1);
+            yield return new SectorRange(this.startInclusive, cutter.startInclusive);
          }
       }
 

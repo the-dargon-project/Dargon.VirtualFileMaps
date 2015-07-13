@@ -2,44 +2,40 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Dargon.VirtualFileMaps;
 using ItzWarty;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
+using Xunit;
 
 namespace Dargon.VirtualFileMapping
 {
-   [TestClass]
    public class NullSectorTest : NMockitoInstance
    {
-      private NullSector testObj;
+      private readonly NullSector testObj;
 
-      [TestInitialize]
-      public void Setup()
-      {
-         InitializeMocks();
-
+      public NullSectorTest() {
          testObj = new NullSector(1000);
       }
 
-      [TestMethod]
+      [Fact]
       public void SizeReflectsConstructorParameterTest()
       {
          AssertEquals(1000, new NullSector(1000).Size);
          AssertEquals(2000, new NullSector(2000).Size);
       }
 
-      [TestMethod]
+      [Fact]
       public void SegmentTest()
       {
-         var ranges = new[]{ new SectorRange(0, 250), new SectorRange(600, 1000) };
+         var ranges = new[]{ new SectorRange(0, 250), new SectorRange(400, 450), new SectorRange(700, 1000) };
          var rangeSizes = ranges.Select(range => range.Size);
-         var results = testObj.Segment(ranges);
+         var results = testObj.Segment(new SectorRange(0, 1000), ranges);
          AssertTrue(results.All(result => result.Value is NullSector));
          AssertTrue(results.Select(result => result.Key).SequenceEqual(ranges));
          AssertTrue(results.Select(result => result.Value.Size).SequenceEqual(rangeSizes));
       }
 
-      [TestMethod]
+      [Fact]
       public void ReadZeroesBufferBytes()
       {
          var random = new Random(0);

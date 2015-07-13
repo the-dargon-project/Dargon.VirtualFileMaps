@@ -29,7 +29,7 @@ namespace Dargon.VirtualFileMaps
             sectors.Remove(kvp.Key);
             if (!range.FullyContains(kvp.Key)) {
                var newPieces = kvp.Key.Chop(range);
-               var newRangeAndSectors = kvp.Value.Segment(newPieces);
+               var newRangeAndSectors = kvp.Value.Segment(kvp.Key, newPieces);
                foreach (var rangeAndSector in newRangeAndSectors) {
                   sectors.Add(rangeAndSector.Key, rangeAndSector.Value);
                }

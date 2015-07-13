@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dargon.VirtualFileMaps;
 using ItzWarty;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
+using Xunit;
 
 namespace Dargon.VirtualFileMapping
 {
-   [TestClass]
    public class VirtualFileTest : NMockitoInstance
    {
       private VirtualFile testObj;
 
       [Mock] private readonly ISectorCollection sectors = null;
 
-      [TestInitialize]
-      public void Setup()
-      {
-         InitializeMocks();
-
+      public VirtualFileTest() {
          testObj = new VirtualFile(sectors);
       }
 
-      [TestMethod]
+      [Fact]
       public void ReadNothingFromEmptyFileTest()
       {
          var readRange = new SectorRange(0, 0);
@@ -33,7 +29,7 @@ namespace Dargon.VirtualFileMapping
          AssertEquals(0, output.Length);
       }
 
-      [TestMethod]
+      [Fact]
       public void ReadWithinSectorTest()
       {
          var readRange = new SectorRange(250, 750);
@@ -52,7 +48,7 @@ namespace Dargon.VirtualFileMapping
          VerifyNoMoreInteractions();
       }
 
-      [TestMethod]
+      [Fact]
       public void ReadAcrossSectorsTest()
       {
          var readRange = new SectorRange(500, 1500);
@@ -81,8 +77,7 @@ namespace Dargon.VirtualFileMapping
          VerifyNoMoreInteractions();
       }
 
-      [TestMethod]
-      [ExpectedException(typeof(ArgumentException))]
+      [Fact]
       public void ReadThrowsOnInadequateBuffer() 
       { 
          long offset = 10;
@@ -90,7 +85,7 @@ namespace Dargon.VirtualFileMapping
          long bufferOffset = 50;
          var buffer = new byte[bufferOffset + length - 1];
 
-         testObj.Read(offset, length, buffer, bufferOffset);
+         AssertThrows<ArgumentException>(() => testObj.Read(offset, length, buffer, bufferOffset));
       }
    }
 }

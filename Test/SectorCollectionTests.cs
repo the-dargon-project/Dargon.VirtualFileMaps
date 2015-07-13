@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Dargon.VirtualFileMaps;
 using ItzWarty;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
+using Xunit;
 
 namespace Dargon.VirtualFileMapping
 {
-   [TestClass]
    public class SectorCollectionTests : NMockitoInstance
    {
-      [TestMethod]
+      [Fact]
       public void AssignSectorTest() 
       { 
          var range = new SectorRange(1000, 2000);
@@ -24,26 +24,26 @@ namespace Dargon.VirtualFileMapping
          VerifyNoMoreInteractions();
       }
 
-      [TestMethod]
+      [Fact]
       public void DeleteRangeTest()
       {
          var initialRange = new SectorRange(0, 1000);
          var initialSector = CreateMock<ISector>();
          var chopRange = new SectorRange(250, 750);
          var leftSector = CreateMock<ISector>();
-         var leftRange = new SectorRange(0, 249);
+         var leftRange = new SectorRange(0, 250);
          var rightSector = CreateMock<ISector>();
          var rightRange = new SectorRange(750, 1000);
          var leftAndRightRange = new[] { leftRange, rightRange };
          var leftAndRightSectors = new[] { leftSector, rightSector };
          var leftAndRightRangeAndSectors = new[] { leftRange.PairValue(leftSector), rightRange.PairValue(rightSector) };
          
-         When(initialSector.Segment(EqSequence(leftAndRightRange))).ThenReturn(leftAndRightRangeAndSectors);
+         When(initialSector.Segment(Eq(initialRange), EqSequence(leftAndRightRange))).ThenReturn(leftAndRightRangeAndSectors);
 
          var collection = new SectorCollection(new KeyValuePair<SectorRange, ISector>(initialRange, initialSector).Wrap());
          collection.DeleteRange(chopRange);
 
-         Verify(initialSector).Segment(Any<IEnumerable<SectorRange>>(x => x.SequenceEqual(leftAndRightRange)));
+         Verify(initialSector).Segment(Eq(initialRange), Any<IEnumerable<SectorRange>>(x => x.SequenceEqual(leftAndRightRange)));
          VerifyNoMoreInteractions();
 
          AssertTrue(leftAndRightSectors.SequenceEqual(collection.EnumerateSectors()));

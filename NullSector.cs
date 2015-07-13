@@ -14,7 +14,7 @@ namespace Dargon.VirtualFileMaps
       public NullSector() { }
       public NullSector(long size) { this.size = size; }
       public long Size { get { return size; } }
-      public IEnumerable<KeyValuePair<SectorRange, ISector>> Segment(IEnumerable<SectorRange> newPieces) { return newPieces.Select(range => range.PairValue((ISector)new NullSector(range.Size))); }
+      public IEnumerable<KeyValuePair<SectorRange, ISector>> Segment(SectorRange currentRange, IEnumerable<SectorRange> newRanges) { return newRanges.Select(range => range.PairValue((ISector)new NullSector(range.Size))); }
       public void Read(long readOffset, long readLength, byte[] buffer, long bufferOffset) { Array.Clear(buffer, (int)bufferOffset, (int)readLength); }
       public void Serialize(BinaryWriter writer) { writer.Write((long)size);}
       public void Deserialize(BinaryReader reader) { size = reader.ReadInt64(); }

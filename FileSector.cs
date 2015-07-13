@@ -21,11 +21,19 @@ namespace Dargon.VirtualFileMaps
          this.length = length;
       }
 
+      public string Path => path;
+      public long Offset => offset;
       public long Size { get { return length; } }
 
-      public IEnumerable<KeyValuePair<SectorRange, ISector>> Segment(IEnumerable<SectorRange> newPieces) {
-         foreach (var piece in newPieces) {
-            yield return piece.PairValue((ISector)new FileSector(path, offset + piece.startInclusive, piece.endExclusive - piece.startInclusive));
+      public IEnumerable<KeyValuePair<SectorRange, ISector>> Segment(SectorRange currentRange, IEnumerable<SectorRange> newRanges) {
+         foreach (var piece in newRanges) {
+            yield return piece.PairValue(
+               (ISector)new FileSector(
+                  path, 
+                  offset + (piece.startInclusive - currentRange.startInclusive), 
+                  piece.endExclusive - piece.startInclusive
+               )
+            );
          }
       }
 
