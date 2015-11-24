@@ -97,7 +97,7 @@ namespace Dargon.VirtualFileMapping
          var chopResults = initial.Chop(new SectorRange(1250, 1750)).ToArray();
 
          AssertEquals(2, chopResults.Length);
-         AssertEquals(new SectorRange(1000, 1249), chopResults[0]);
+         AssertEquals(new SectorRange(1000, 1250), chopResults[0]);
          AssertEquals(new SectorRange(1750, 2000), chopResults[1]);
       }
 
@@ -112,7 +112,7 @@ namespace Dargon.VirtualFileMapping
          AssertEquals(1, chopResults2.Length);
 
          AssertEquals(chopResults1[0], chopResults2[0]);
-         AssertEquals(new SectorRange(1000, 1499), chopResults1[0]);
+         AssertEquals(new SectorRange(1000, 1500), chopResults1[0]);
       }
    }
 }
