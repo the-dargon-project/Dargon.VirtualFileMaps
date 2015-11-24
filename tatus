@@ -1,0 +1,101 @@
+[33mcommit 6ebcf35711c2428d81bba910f2d42d617eea1a49[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Mon Nov 23 22:10:37 2015 -0800
+
+    Spike
+
+[33mcommit f71aec2aac01367ac87d3cace6c09fb4e8a80f8d[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Mon Jul 13 16:10:02 2015 -0700
+
+    Remove StructSizeTest as it is pretty useless.
+
+[33mcommit cd4f5993627c7389fa48537a3f66604ca717a84d[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Mon Jul 13 16:08:00 2015 -0700
+
+    Fix offset issue in FileSector Segment.
+    
+    We weren't accounting for the current segment range assigned to a sector
+    when segmenting the sector. For this reason, if we had a VFM:
+    
+       [0, 300)   Annie.dds   [0, 300)
+       [300, 600) Nidalee.dds [0, 300)
+    
+    And we chopped Nidalee.dds to keep [450, 600), we'd get
+       [0, 300)   Annie.dds   [0, 300)
+       [450, 600) Nidalee.dds [450, 750)
+    
+    or something of the like, which is obviously bad.
+    
+    Also updated the old tests to properly use NMockito.
+
+[33mcommit cfb1530d91264e27fb9dfa55fa5d626d0ec43247[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Sun Jun 28 12:03:50 2015 -0700
+
+    Add default ctors to sectors for deserialization.
+
+[33mcommit 27f4c2917370f57806fa496cb9aef01f7a9618cf[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Sat Jun 27 12:26:59 2015 -0700
+
+    Fix reference to ItzWarty.Commons.
+
+[33mcommit 41f9323424858e7388600c3e1862c8061b96c731[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Sat Jun 27 12:22:06 2015 -0700
+
+    Prep for standalone nuget package release.
+
+[33mcommit 18fd245429ab3fcefa801fe2c96bf2f9ed0eea96[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Mon May 4 02:46:53 2015 -0700
+
+    Rename to Dargon.VirtualFileMaps.
+
+[33mcommit b3e612b1d5c5dfe881741d576e59751bf8bb3fe1[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Tue Dec 2 04:33:03 2014 -0800
+
+    Bump libvfm to latest version of libwarty, prepare for NuGet package release.
+
+[33mcommit 9babba227add161cae2b46b161c87b5a0c606a34[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Wed Nov 26 15:54:16 2014 -0800
+
+    Bump libwarty to 0.0.0.14.
+
+[33mcommit 308e23ee0e28fba208922fefe463fd9d46dd3478[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Wed Nov 26 00:23:04 2014 -0800
+
+    Spike.
+
+[33mcommit 8245c0df0db4de6136ee38765bcc6ac1584de170[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Sat Oct 11 01:14:06 2014 -0700
+
+    ReadAcrossSectorsTest now has middle sector which is completely read from, so that all possible combinations of reads are now performed in unit tests.
+    
+    - Combinations consist of: read nothing, read all, read left, read right, read middle.
+
+[33mcommit 20060f8e2591c863efecf117c3a2e086e889e1af[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Sat Oct 11 00:51:13 2014 -0700
+
+    Properly handle reading from Virtual Files with gaps between sectors.
+
+[33mcommit 2b48ce93d90f390172640055c64b1d58ec77a22a[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Thu Oct 9 02:52:20 2014 -0700
+
+    Initial spike of libvfm.
+    
+    Warning: SectorCollection doesn't yet fill blank space with null sectors!
+
+[33mcommit 282e9477aba76ab96f8ba554ecda26e591961a30[m
+Author: Michael Yu <ItzWarty@gmail.com>
+Date:   Wed Oct 8 22:16:59 2014 -0700
+
+    Initialize Default Dargon Repository (C#).
